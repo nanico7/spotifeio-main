@@ -1,8 +1,9 @@
 export const enviroment = {
-  production: false,
-};
-export const spotifyConfiguration = {
-  clientId: 'f298e0c4a7dc49f88e34f697d53d11f1',
+  production: false
+}
+
+export const SpotifyConfiguration = {
+  clientId: 'c9f2c4d3792a408fb3bdea1945cb1f80',
   authEndpoint: 'https://accounts.spotify.com/authorize',
   apiTokenEndpoint: 'https://accounts.spotify.com/api/token',
   redirectUrl: 'http://127.0.0.1:4200/login',
@@ -14,6 +15,6 @@ export const spotifyConfiguration = {
     'user-modify-playback-state', //Controlar a reproduçao
     'user-library-read', //Ler biblioteca de musicas
     'playlist-read-private', //Ler playlists privadas
-    'playlist-read-collaborative', //Ler playlists colaborativas
-  ],
-};
+    'playlist-read-collaborative' //Ler playlists colaborativas
+  ]
+}
