@@ -4,9 +4,8 @@ import { SpotifyConfiguration } from "../../enviroment/enviroment";
 @Injectable({
     providedIn: 'root'
 })
-
 export class SpotifyService {
-    
+
     constructor() {}
 
     async obterUrlLogin(): Promise<string> {
@@ -14,14 +13,13 @@ export class SpotifyService {
 
         const authPoint = `${SpotifyConfiguration.authEndpoint}?`;
         const clientId = `client_id=${SpotifyConfiguration.clientId}&`;
-        const urlRedirection = `redirect_url=${SpotifyConfiguration.redirectUrl}&`;
+        const urlRedirection = `redirect_uri=${SpotifyConfiguration.redirectUrl}&`; // corrigido para redirect_uri
         const scopes = `scope=${SpotifyConfiguration.scopes.join('%20')}&`;
-        const codeChallengeMethod = 'code_challenge_method=S256';
-        const codeChallangeParam = 'code_challenge' + codigoAleatorio + '&'; 
+        const codeChallengeMethod = 'code_challenge_method=S256&';
+        const codeChallangeParam = `code_challenge=${codigoAleatorio}&`; // corrigido para incluir '='
         const responseType = 'response_type=code';
-        
-        return `${authPoint}${clientId}${urlRedirection}${scopes}${codeChallengeMethod}${codeChallangeParam}${responseType}`;
 
+        return `${authPoint}${clientId}${urlRedirection}${scopes}${codeChallengeMethod}${codeChallangeParam}${responseType}`;
     }
 
     async gerarCodigoAleatorio() {
@@ -52,31 +50,25 @@ export class SpotifyService {
             .replace(/=+$/, '');
     }
 
-     definirAcessToken(code : string) {
-        const codigoVerificador = localStorage.getItem(key: 'code_verifier');
-        const tokenEndpont :string = SpotifyConfiguration.apiTokenEndpoint;
-    }
+    async definirAcessToken(code: string) {
+        const codigoVerificador = localStorage.getItem('code_verifier');
+        const tokenEndpoint: string = SpotifyConfiguration.apiTokenEndpoint;
 
-    const params = new URLSearchParams();
-    params.append("client_id", SpotifyConfiguration.clientId);
-    params.append("grant_type", value: "authorization_code");
-    params.append("code", code);
-    params.append("redirect_uri", SpotifyConfiguration.redirectUrl);
-    params.append("code_verifier", codigoVerificador!);
+        const params = new URLSearchParams();
+        params.append("client_id", SpotifyConfiguration.clientId);
+        params.append("grant_type", "authorization_code");
+        params.append("code", code);
+        params.append("redirect_uri", SpotifyConfiguration.redirectUrl);
+        params.append("code_verifier", codigoVerificador!);
 
-    try {
-    const response:Response = await fetch(tokenEndpont, {
-    method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: params
-});
- const dados : any = await response.json();
- let acessToken : any = dados.access_token;
-
- if (acessToken) {
-    alert("Login realizado com sucesso!");
-} catch (error) {
-    console.error("Error ao definir access token:", error);
-   return false;
-}
- }
+        try {
+            const response: Response = await fetch(tokenEndpoint, {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: params
+            });
+            return response;
+        } catch (error) {
+            console.error("Error ao definir access token:", error);
+            return false;
+        }}}
