@@ -28,10 +28,6 @@ export class LoginComponent implements OnInit {
 
     if (codigo) {
       const sucesso = this.serviceSpotify.definirAcesstoken(codigo);
-
-      if (sucesso) {
-        // Redirecionar ou realizar alguma ação após o login bem-sucedido
-      }
     }
   }
 }
