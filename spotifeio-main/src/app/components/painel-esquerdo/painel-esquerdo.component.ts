@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core";
 import {BotaoMenuComponent} from '../botao-menu/botao-menu.component';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
-import {faHome, faSearch, faUser} from '@fortawesome/free-solid-svg-icons';
+import {faHome} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-painel-esquerdo',
@@ -16,9 +16,7 @@ import {faHome, faSearch, faUser} from '@fortawesome/free-solid-svg-icons';
 })
 export class PainelEsquerdoComponent implements OnInit {
 
-  faHome = faHome;
-  faSearch = faSearch;
-  faUser = faUser;
+  protected readonly faHome = faHome;
 
   ngOnInit(): void {
 
